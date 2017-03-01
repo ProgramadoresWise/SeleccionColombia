@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e07cb2d860c30844b8d38791382b4ce1
+timeCreated: 1486135321
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Helvetica Condensed
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: da5abbc96e0428e49936bdc7a9257906, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
