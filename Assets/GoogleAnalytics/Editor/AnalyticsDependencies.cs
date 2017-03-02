@@ -16,61 +16,44 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 
-/// AdMob dependencies file.
 [InitializeOnLoad]
-public class AdMobDependencies : AssetPostprocessor
+public class AnalyticsDependencies : AssetPostprocessor
 {
-    /// Initializes static members of the class.
-    static AdMobDependencies() { SetupDeps(); }
-
+    static AnalyticsDependencies() { SetupDeps(); }
     static void SetupDeps() {
 #if UNITY_ANDROID
-        // Setup the resolver using reflection as the module may not be
-        // available at compile time.
         Type playServicesSupport = Google.VersionHandler.FindClass(
             "Google.JarResolver", "Google.JarResolver.PlayServicesSupport");
+
         if (playServicesSupport == null) {
             return;
         }
+
         object svcSupport = Google.VersionHandler.InvokeStaticMethod(
             playServicesSupport, "CreateInstance",
             new object[] {
-                "AdMobUnity",
+                "AnalyticsDependencies",
                 EditorPrefs.GetString("AndroidSdkRoot"),
                 "ProjectSettings"
             });
 
         Google.VersionHandler.InvokeInstanceMethod(
             svcSupport, "DependOn",
-            new object[] { "com.google.android.gms", "play-services-ads",
+            new object[] { "com.google.android.gms", "play-services-analytics",
                            "LATEST" },
             namedArgs: new Dictionary<string, object>() {
                 {"packageIds", new string[] {
                         "extra-google-m2repository",
                         "extra-android-m2repository"} }
             });
-#elif UNITY_IOS
-        Type iosResolver = Google.VersionHandler.FindClass(
-            "Google.IOSResolver", "Google.IOSResolver");
-        if (iosResolver == null) {
-            return;
-        }
-        Google.VersionHandler.InvokeStaticMethod(
-            iosResolver, "AddPod",
-            new object[] { "Google-Mobile-Ads-SDK" },
-            namedArgs: new Dictionary<string, object>() {
-                { "version", "7.13+" }
-            });
-#endif  // UNITY_IOS
+#endif
     }
 
-    // Handle delayed loading of the dependency resolvers.
     private static void OnPostprocessAllAssets(
             string[] importedAssets, string[] deletedAssets,
             string[] movedAssets, string[] movedFromPath) {
         foreach (string asset in importedAssets) {
-            if (asset.Contains("IOSResolver") ||
-                asset.Contains("JarResolver")) {
+            if (asset.Contains("JarResolver")) {
                 SetupDeps();
                 break;
             }

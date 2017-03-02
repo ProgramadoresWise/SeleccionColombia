@@ -51,6 +51,7 @@ public class RegisterLoginManager : MonoBehaviour
     public InputField t_name, t_lastname, t_email, t_indcel, t_cel, t_pass, t_confirmpass;
     [HideInInspector]
     public MaterialDropdown d_day, d_month, d_year;
+    public Toggle t_terminos;
     //	[HideInInspector]
     public Dropdown d_country, d_city;
     [HideInInspector]
@@ -569,6 +570,10 @@ public class RegisterLoginManager : MonoBehaviour
         else if (string.IsNullOrEmpty (gender))
         {
             DataApp.main.popUpInformative (true, "Genero no Valido", "Selecciona tu genero.");
+        }
+        else if(!t_terminos.isOn)
+        {
+            DataApp.main.popUpInformative (true, "Políticas no valido", "Selecciona la casilla de politicas de privacidad.");
         }
         else
         {
