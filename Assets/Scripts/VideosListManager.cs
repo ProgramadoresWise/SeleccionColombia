@@ -9,7 +9,7 @@ public class VideosListManager : MonoBehaviour
     public List<VideosListItem> videosList;
     public GameObject buttonPrefab;
     public RectTransform content;
-    public GameObject menu, camera;
+    public GameObject menu, cameraVid;
 
     void Awake ()
     {

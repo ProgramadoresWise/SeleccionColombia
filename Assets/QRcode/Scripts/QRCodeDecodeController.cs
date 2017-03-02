@@ -120,6 +120,7 @@ public class QRCodeDecodeController : MonoBehaviour
 					catch (Exception e)
 					{
 						decoding = false;
+						Debug.LogWarning(e);
 					}
 				});	
 			}
