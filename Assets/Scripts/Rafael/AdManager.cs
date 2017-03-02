@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using GoogleMobileAds.Api;
 using UnityEngine;
+using MaterialUI;
 
 
 public class AdManager : MonoBehaviour
@@ -9,34 +10,66 @@ public class AdManager : MonoBehaviour
     public bool isTesting;
 
     [HeaderAttribute ("Ad Unit")]
-    public string adUnitBannerAndroid;
-    public string adUnitBannerIOS;
+    public string adUnitBannerAndroidTop;
+    public string adUnitBannerAndroidBottom;
+    public string adUnitBannerTopIOS;
+    public string adUnitBannerBottomIOS;
+
+    [HeaderAttribute("Enable/Disable")]
+    public TabView TabViewRegistro;
+    public GameObject goCarga, goNavMenu;
+    bool canShow = false;
+    public static bool snackShow;
     //
-    BannerView bannerView;
+    [HideInInspector]
+    public BannerView bannerViewBottom;
+    public BannerView bannerViewTop;
 
     // Use this for initialization
     void Start ()
     {
-        RequestBanner ();
+        RequestBannerBottom ();
+        RequestBannerTop ();
     }
 
     // Update is called once per frame
     void Update ()
     {
-        Screen.fullScreen = false;
+        if(TabViewRegistro.gameObject.activeInHierarchy)
+        {
+            if(TabViewRegistro.currentPage == 5)
+            {
+                bannerViewBottom.Hide();
+            }
+            else
+            {
+                bannerViewBottom.Show();
+            }
+        }
+
+        if(goCarga.activeInHierarchy || goNavMenu.activeInHierarchy)
+        {
+            bannerViewBottom.Hide();
+            canShow = true;
+        }
+        else if(canShow)
+        {
+            bannerViewBottom.Show();
+            canShow = false;
+        }
     }
 
-    private void RequestBanner ()
+    private void RequestBannerBottom ()
     {
 #if UNITY_ANDROID
-        string adUnitId = adUnitBannerAndroid;
+        string adUnitId = adUnitBannerAndroidBottom;
 #elif UNITY_IPHONE
         string adUnitId = adUnitBannerIOS;
 #else
         string adUnitId = "unexpected_platform";
 #endif
         // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView (adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
+        bannerViewBottom = new BannerView (adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 
         // bannerView.OnAdOpening += AdOpenedHandler;
 
@@ -56,9 +89,41 @@ public class AdManager : MonoBehaviour
             request = new AdRequest.Builder ().Build ();
         }
         // Load the banner with the request.
-        bannerView.LoadAd (request);
+        bannerViewBottom.LoadAd (request);
     }
 
+    private void RequestBannerTop ()
+    {
+#if UNITY_ANDROID
+        string adUnitId = adUnitBannerAndroidTop;
+#elif UNITY_IPHONE
+        string adUnitId = adUnitBannerIOS;
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+        // Create a 320x50 banner at the top of the screen.
+        bannerViewTop = new BannerView (adUnitId, AdSize.SmartBanner, AdPosition.Top);
+
+        // bannerView.OnAdOpening += AdOpenedHandler;
+
+        // Create an empty ad request.
+        AdRequest request;
+        //
+        if (isTesting)
+        {
+			#if UNITY_ANDROID
+            request = new AdRequest.Builder ().AddTestDevice (GetAndroidAdMobID ()).Build ();
+			#elif UNITY_IPHONE
+			request = new AdRequest.Builder ().AddTestDevice (GetIOSAdMobID ()).Build ();
+			#endif
+        }
+        else
+        {
+            request = new AdRequest.Builder ().Build ();
+        }
+        // Load the banner with the request.
+        bannerViewTop.LoadAd (request);
+    }
     // public void AdOpenedHandler(object sender, EventArgs args)
     // {
 

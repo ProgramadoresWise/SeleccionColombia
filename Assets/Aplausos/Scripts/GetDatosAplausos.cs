@@ -88,14 +88,12 @@ public class GetDatosAplausos : MonoBehaviour
 		}
 
 
-		p_Bandera1 = Resources.Load<Sprite>(p_Equipo1);
-		if( p_Bandera1 == null)
-			p_Bandera1 = ImgLoadManager.main.teamImg(imgLocal,p_Equipo1,false);
+		p_Bandera1 = Resources.Load<Sprite>("Equipos/"+p_Equipo1);
 
 
-		p_Bandera2 = Resources.Load<Sprite>(p_Equipo2);
-		if( p_Bandera2 == null)
-			p_Bandera2 = ImgLoadManager.main.teamImg(imgVisitante,p_Equipo2,false);
+
+		p_Bandera2 = Resources.Load<Sprite>("Equipos/"+p_Equipo2);
+	
 
 		RellenarPartido(p_Bandera1, p_Bandera2, p_Equipo1, p_Equipo2);
 	}

@@ -24,7 +24,7 @@ public class Video360Creator : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         // Screen.orientation = ScreenOrientation.AutoRotation;
-        VideosListManager.singleton.cameraVid.SetActive (false);
+        VideosListManager.singleton.cameraVR.SetActive (false);
         //foreach (GameObject go in GameObject.FindGameObjectsWithTag("VideosListCamera"))
         //    go.SetActive(false);
 
@@ -76,7 +76,7 @@ public class Video360Creator : MonoBehaviour
         Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = false;
         Screen.orientation = ScreenOrientation.Portrait;
 
-        VideosListManager.singleton.cameraVid.SetActive (true);
+        VideosListManager.singleton.cameraVR.SetActive (true);
         //VideosListManager.singleton.ShowMenu();
 
 #if UNITY_ANDROID

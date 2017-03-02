@@ -52,5 +52,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTesting: 1
-  adUnitBannerAndroid: ca-app-pub-3590626879823068/6492167030
-  adUnitBannerIOS: ca-app-pub-3590626879823068/2288319837
+  adUnitBannerAndroidTop: ca-app-pub-3590626879823068/8206769033
+  adUnitBannerAndroidBottom: ca-app-pub-3590626879823068/6492167030
+  adUnitBannerTopIOS: ca-app-pub-3590626879823068/9683502233
+  adUnitBannerBottomIOS: ca-app-pub-3590626879823068/2288319837
+  TabViewRegistro: {fileID: 0}
+  goCarga: {fileID: 0}
+  goNavMenu: {fileID: 0}

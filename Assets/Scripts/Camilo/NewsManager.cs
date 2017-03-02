@@ -16,9 +16,6 @@ public class NewsManager: MonoBehaviour {
 	public GameObject ContentScrollList;
 //	[HideInInspector]
 	public GameObject newPrefab;
-//	[HideInInspector]
-	public GameObject enableComponentsReset;
-//	[HideInInspector]
 	public  List<viewNew> newsListActual;
 //	[HideInInspector]
 	public List <GameObject> newsList;
@@ -256,7 +253,6 @@ public class NewsManager: MonoBehaviour {
 	}
 		
 	IEnumerator enumResetPosContent(){
-		enableComponentsReset.SetActive(true);
 		float restPosY = ContentScrollList.GetComponent<RectTransform> ().anchoredPosition.y;
 		while (restPosY > 0 ){
 			if (restPosY <= 20f) {
@@ -268,7 +264,6 @@ public class NewsManager: MonoBehaviour {
 			ContentScrollList.GetComponent<RectTransform> ().anchoredPosition = new Vector2(ContentScrollList.GetComponent<RectTransform> ().anchoredPosition.x, restPosY ) ;
 			BackNewsBtn.gameObject.SetActive (false);
 		}
-		enableComponentsReset.SetActive(false);
 	}
 
 	public  string ToAntiCache( string url){

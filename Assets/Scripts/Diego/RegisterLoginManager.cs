@@ -584,7 +584,8 @@ public class RegisterLoginManager : MonoBehaviour
                     StartCoroutine (confirmDatasAndMail (validDatas));
                 else
                     DataApp.main.popUpInformative (true, "Fallo en la conexíon.", "Revisa tu conexión a internet.");
-            }));
+            }
+            ));
         }
     }
 

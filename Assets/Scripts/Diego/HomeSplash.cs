@@ -7,8 +7,6 @@ using MaterialUI;
 public class HomeSplash : MonoBehaviour {
 
 	public static HomeSplash main;
-
-
 	public Loading loadingmain;
 	public Image splash;
 	public List<Sprite> spritesSplash;
