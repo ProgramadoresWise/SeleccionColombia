@@ -17,11 +17,10 @@ public class AdManager : MonoBehaviour
 
     [HeaderAttribute("Enable/Disable")]
     public TabView TabViewRegistro;
-    public GameObject goCarga, goNavMenu;
+    public GameObject goCarga, goNavMenu, goWelcome;
     bool canShow = false;
     public static bool snackShow;
     //
-    [HideInInspector]
     public BannerView bannerViewBottom;
     public BannerView bannerViewTop;
 
@@ -29,7 +28,7 @@ public class AdManager : MonoBehaviour
     void Start ()
     {
         RequestBannerBottom ();
-        RequestBannerTop ();
+        //RequestBannerTop ();
     }
 
     // Update is called once per frame
@@ -47,7 +46,7 @@ public class AdManager : MonoBehaviour
             }
         }
 
-        if(goCarga.activeInHierarchy || goNavMenu.activeInHierarchy)
+        if(goCarga.activeInHierarchy || goNavMenu.activeInHierarchy || goWelcome.activeInHierarchy)
         {
             bannerViewBottom.Hide();
             canShow = true;

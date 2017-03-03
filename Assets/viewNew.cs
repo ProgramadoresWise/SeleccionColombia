@@ -145,7 +145,8 @@ public class viewNew : MonoBehaviour
                 NavigatorManager.main.popUpInfoPanelToDesactived = MediaPlayerManager.main._panelVideos;
                 NavigatorManager.main.enablePopUpInfoPanel = true;
                 MediaPlayerManager.main.videoURL = linkVideo;
-                StartCoroutine (MediaPlayerManager.main.selectVideo (720, tituloNew.text));
+                //StartCoroutine (MediaPlayerManager.main.selectVideo (720, tituloNew.text));
+                InAppBrowser.OpenURL(linkVideo);
             }
             else
             {
@@ -176,7 +177,8 @@ public class viewNew : MonoBehaviour
                 NavigatorManager.main.popUpInfoSubPanelToDesactived = MediaPlayerManager.main._panelVideos;
                 NavigatorManager.main.enableSubPopUpInfoPanel = true;
                 MediaPlayerManager.main.videoURL = linkVideo;
-                StartCoroutine (MediaPlayerManager.main.selectVideo (720, tituloNew.text));
+                //StartCoroutine (MediaPlayerManager.main.selectVideo (720, tituloNew.text));
+                InAppBrowser.OpenURL(linkVideo);
             }
             else
             {
