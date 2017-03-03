@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class GetFootballPlayersDataScript : MonoBehaviour {
 
@@ -70,56 +71,77 @@ public class GetFootballPlayersDataScript : MonoBehaviour {
 
 	private IEnumerator GetFootballPlayersPhoto(){
 
-		UpdateDataScript.updateData.RunUpdatePanel ();
-//		int temporalCounter = 1;
-//
-//		foreach (FootballPlayer player in footballPlayersdata.dataList) {
-//			
-//			Debug.Log ("Counter Load Image: " + temporalCounter + " " + urlFootballPlayersPhoto + player.idData + ".jpg");
-////			player._imgPhoto = ImgLoadManager.main.PlayerImg( null , player.idData.ToString(), false);
-//			yield return StartCoroutine( ImgLoadManager.main.PlayerImg_dAlineacionPolla( player.idData.ToString(), resultsp =>{
-//				player._imgPhoto = resultsp;
-//			},false));
-////			WWW photo = new WWW(urlFootballPlayersPhoto + player.idData + ".jpg");
-////			yield return photo;
-////
-////			if (string.IsNullOrEmpty (photo.error)) {
-////				
-////				Rect size = new Rect (0, 0, photo.texture.width, photo.texture.height);
-////				player._imgPhoto = Sprite.Create (photo.texture, size, Vector2.zero);
-////			} else {
-////
-////				player._imgPhoto = Resources.Load <Sprite> ("FootballPlayersPhoto/DefaultSilhouette");
-////				Debug.Log ("Counter Load Image: " + temporalCounter + " " + "Load Image Failed Set DefaultSilhouette" + player.idData + "-" + player.nameData);
-////			}
-//
-//			temporalCounter++;
-//		}
-
-
+		//UpdateDataScript.updateData.RunUpdatePanel ();
 
 		Debug.Log("Y AJA!!");
 
 		foreach ( Players pl in SeleccionC.club.PlayersInfo ){
+
+			UpdateDataScript.updateData.RunUpdatePanel ();
+			
 			if(  pl._ordenPartido != 0 ){
+				
 				FootballPlayer newPl = new FootballPlayer(pl._id, pl._name);
 				newPl.position = pl._pos;
-				yield return StartCoroutine( ImgLoadManager.main.PlayerImg_dAlineacionPolla(newPl.imgPhoto  , newPl.idData.ToString(), resultsp =>{
-					newPl._imgPhoto = resultsp;
-				},false)); 
+
+				yield return StartCoroutine(GetPlayerImgAlineacionPolla(resultsp =>{
+
+					if(resultsp != null){
+
+						newPl._imgPhoto = resultsp;
+
+					} else {
+
+						//Load Default Img
+					}
+
+				}, newPl.idData.ToString()));
+//				yield return StartCoroutine( ImgLoadManager.main.PlayerImg_dAlineacionPolla(newPl.imgPhoto  , newPl.idData.ToString(), resultsp =>{
+//					newPl._imgPhoto = resultsp;
+//				},false)); 
 				footballPlayersdata.dataList.Add(newPl);
 			}
 		}
 
 		if(footballPlayersdata != null){
-		
+
 			footballPlayersdata.SortFootballPlayerList ();
 		}
 
 		this.GetComponent<ScrollPrediccionScript> ().ValidatePredictionStatus ();
 
 		Debug.Log ("Full load images");
+	}
 
-		yield return null;
+	public IEnumerator GetPlayerImgAlineacionPolla(System.Action <Sprite> downImg, string nameImg){
+
+		Sprite photo = new Sprite (); 
+
+		byte[] imgBt = null;
+		Texture2D tex = null;
+
+		string typeImg =".png";
+
+		if(File.Exists(Application.persistentDataPath + "/Redondas/"+ nameImg +typeImg)){
+
+			imgBt = File.ReadAllBytes(Application.persistentDataPath + "/Redondas/"+ nameImg + typeImg) ;
+
+			tex = new Texture2D(256, 256);	
+			tex.LoadImage(imgBt);
+			photo = Sprite.Create( tex , new Rect(0,0, tex.width, tex.height), Vector2.zero);
+
+		}else{
+
+			WWW newImg = new WWW( DataApp.main.host  + "Imagenes/Jugadores/Redondas/"+ nameImg+typeImg);
+			yield return newImg;
+			if( string.IsNullOrEmpty( newImg.error)) { 
+				photo  = Sprite.Create( newImg.texture, new Rect(0,0, newImg.texture.width, newImg.texture.height), Vector2.zero);
+				imgBt = newImg.texture.EncodeToPNG( );
+				File.WriteAllBytes(Application.persistentDataPath  + "/Redondas/"+ nameImg + typeImg, imgBt);
+				yield return new WaitForEndOfFrame();
+			}
+		}
+
+		downImg(photo);
 	}
 }

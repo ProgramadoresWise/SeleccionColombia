@@ -70,6 +70,9 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 	public GameObject alignmentDatasPanel;
 
 	[SerializeField]
+	public Text alignmentCompletePointsText;
+
+	[SerializeField]
 	public List<AlignmentResultData> alignmentResultDataList;
 
 	[SerializeField]
@@ -341,6 +344,19 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 					//totalPnts = (obj.prediction_Points != 0) ? totalPnts * obj.prediction_Points : totalPnts;
 					totalPnts = (obj.prediction_Points > 1) ? totalPnts + obj.prediction_Points : totalPnts;
 
+					if (obj.acertoTodo == 1) {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = signOfPoints + " 500";
+
+						resultData.GetComponent<ContentGolScript> ().anotadorData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().tipoGolData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().asistenciaData._points.color = new Color32 (55, 179, 75, 100);
+
+					} else {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = "";
+					}
+
 					index++;
 
 				} else {
@@ -367,7 +383,7 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 					resultData.GetComponent<RectTransform>().localScale = new Vector3 (1, 1, 1);
 					yield return new WaitForEndOfFrame (); //WaitForSeconds(0.1f);
 
-					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setNumGol", titleGols[index] + " Gol", titleGols[index] + " GSol", 0);
+					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setNumGol", titleGols[index] + " Gol", titleGols[index] + " Gol", 0);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setAnotador", obj.autor_Gol, obj.autor_Gol_Result, obj.autor_Gol_Points);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setMinuto", obj.min_Gol.ToString(), obj.min_Gol_Result.ToString(), obj.min_Gol_Points);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setTipoGol", obj.tipo_Gol, obj.tipo_Gol_Result, obj.tipo_Gol_Points);
@@ -375,6 +391,19 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 					//totalPnts = (obj.prediction_Points != 0) ? totalPnts*obj.prediction_Points : totalPnts;
 					totalPnts = (obj.prediction_Points > 1) ? totalPnts + obj.prediction_Points : totalPnts;
+
+					if (obj.acertoTodo == 1) {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = signOfPoints + " 500";
+
+						resultData.GetComponent<ContentGolScript> ().anotadorData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().tipoGolData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().asistenciaData._points.color = new Color32 (55, 179, 75, 100);
+
+					} else {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = "";
+					}
 
 					index++;
 
@@ -483,10 +512,20 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 				
 				alignmentResultDataList [i]._points.text =  signOfPoints + alignmentResultList.dataList[0].GetValueToKey ("PtnAlign" + (i+1));
 
+				if(int.Parse(alignmentResultList.dataList[0].GetValueToKey ("AcertoTodo")) == 1){
+
+					alignmentResultDataList [i]._points.color = new Color32 (55, 179, 75, 100);
+				}
+
 			} else {
 
 				alignmentResultDataList [i]._points.text = "";
 			}
+		}
+
+		if(int.Parse(alignmentResultList.dataList[0].GetValueToKey ("AcertoTodo")) == 1){
+
+			alignmentCompletePointsText.text = signOfPoints + " 500";
 		}
 
 		alignmentDatasPanel.SetActive (true);
