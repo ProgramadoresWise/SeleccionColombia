@@ -137,7 +137,6 @@ public class viewNew : MonoBehaviour
 
     public void FunctionNew ()
     {
-        DataApp.main.EnableLoading ();
         if (isvideo == 1)
         {
             if (User.main.GetMyEmailVerif () == 1)
@@ -161,6 +160,7 @@ public class viewNew : MonoBehaviour
         }
         else
         {
+            DataApp.main.EnableLoading ();
             NavigatorManager.main.panelsPrincipales[NavigatorManager.main.actualPanel]._enablePopUpInfoPanel (0);
             StartCoroutine (managerNews.bigView.BigNews (this));
             //			StartCoroutine  ( DataApp.main._DisbleLoading() );
@@ -169,7 +169,6 @@ public class viewNew : MonoBehaviour
 
     public void FunctionNewPlayer ()
     {
-        DataApp.main.EnableLoading ();
         if (isvideo == 1)
         {
             if (User.main.GetMyEmailVerif () == 1)
@@ -193,6 +192,7 @@ public class viewNew : MonoBehaviour
         }
         else
         {
+            DataApp.main.EnableLoading ();
             NavigatorManager.main.panelsPrincipales[NavigatorManager.main.actualPanel]._enablePopUpInfoSubPanel (1);
             StartCoroutine (PerfilJugador.main.bigView.BigNews (this));
             //			StartCoroutine  ( DataApp.main._DisbleLoading() );
