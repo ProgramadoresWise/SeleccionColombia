@@ -105,7 +105,9 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		Debug.Log ("El ID del usuario recibido es: " + userID + " y la fecha: " + fecha);
 
-		gameObject.SetActive (true);
+		//gameObject.SetActive (true);
+
+		NavigatorManager.main.panelsPrincipales[13]._enablePopUpInfoPanel (0);
 
 		DateTime newDate = DateTime.Parse (fecha.dataList[0].fecha);
 
@@ -421,14 +423,14 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		if (marcador.esLocal == 1) {
 
-			EscudoEquipoHeader.sprite = ImgLoadManager.main.teamImg (EscudoEquipoHeader, "COLOMBIA", false);
-			EscudoOponenteHeader.sprite = ImgLoadManager.main.teamImg (EscudoOponenteHeader, oponente.ToUpper(), false);
+			EscudoEquipoHeader.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoHeader, "COLOMBIA", false);
+			EscudoOponenteHeader.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteHeader, oponente.ToUpper(), false);
 
-			EscudoEquipoLeft.sprite = ImgLoadManager.main.teamImg (EscudoEquipoLeft, "COLOMBIA", false);
-			EscudoOponenteLeft.sprite = ImgLoadManager.main.teamImg (EscudoOponenteLeft, oponente.ToUpper(), false);
+			EscudoEquipoLeft.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoLeft, "COLOMBIA", false);
+			EscudoOponenteLeft.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteLeft, oponente.ToUpper(), false);
 
-			EscudoEquipoRight.sprite = ImgLoadManager.main.teamImg (EscudoEquipoRight, "COLOMBIA", false);
-			EscudoOponenteRight.sprite = ImgLoadManager.main.teamImg (EscudoOponenteRight, oponente.ToUpper(), false);
+			EscudoEquipoRight.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoRight, "COLOMBIA", false);
+			EscudoOponenteRight.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteRight, oponente.ToUpper(), false);
 
 			BarcelonaGolesLeft.text = marcador.goles_Barcelona.ToString ();
 			OponenteGolesLeft.text = marcador.goles_Oponente.ToString ();
@@ -438,14 +440,14 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		} else {
 
-			EscudoEquipoHeader.sprite = ImgLoadManager.main.teamImg (EscudoEquipoHeader, oponente.ToUpper(), false);
-			EscudoOponenteHeader.sprite = ImgLoadManager.main.teamImg (EscudoOponenteHeader, "COLOMBIA", false);
+			EscudoEquipoHeader.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower());//ImgLoadManager.main.teamImg (EscudoEquipoHeader, oponente.ToUpper(), false);
+			EscudoOponenteHeader.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteHeader, "COLOMBIA", false);
 
-			EscudoEquipoLeft.sprite = ImgLoadManager.main.teamImg (EscudoEquipoLeft, oponente.ToUpper(), false);
-			EscudoOponenteLeft.sprite = ImgLoadManager.main.teamImg (EscudoOponenteLeft, "COLOMBIA", false);
+			EscudoEquipoLeft.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoEquipoLeft, oponente.ToUpper(), false);
+			EscudoOponenteLeft.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteLeft, "COLOMBIA", false);
 
-			EscudoEquipoRight.sprite = ImgLoadManager.main.teamImg (EscudoEquipoRight, oponente.ToUpper(), false);
-			EscudoOponenteRight.sprite = ImgLoadManager.main.teamImg (EscudoOponenteRight, "COLOMBIA", false);
+			EscudoEquipoRight.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoEquipoRight, oponente.ToUpper(), false);
+			EscudoOponenteRight.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteRight, "COLOMBIA", false);
 		
 			BarcelonaGolesLeft.text = marcador.goles_Oponente.ToString ();
 			OponenteGolesLeft.text = marcador.goles_Barcelona.ToString ();

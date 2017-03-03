@@ -33,6 +33,8 @@ public class NavigationTabPanelsScript : MonoBehaviour {
 
 	public ScrollPrediccionScript TapPrediccionPanel;
 
+	[SerializeField]
+	private GameObject viewUserResultPanel;
 
 	//Variables para Caso especial en Android boton Back:
 	public GameObject instructionPanel;
@@ -50,28 +52,36 @@ public class NavigationTabPanelsScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		/*
 		if (Input.GetKeyDown (KeyCode.Escape) && !UpdateDataScript.updateData.isActiveAndEnabled) {
 
-			if(instructionPanel.activeSelf){
+			if (!viewUserResultPanel.activeSelf) {
 
-				if(objPanels[0].GetComponent<RunInstructionsFromPredictionScript>()._openInstruction){
+				if (instructionPanel.activeSelf) {
 
-					SelectedButtonPanel (1);
-				
+					if (objPanels [0].GetComponent<RunInstructionsFromPredictionScript> ()._openInstruction) {
+
+						SelectedButtonPanel (1);
+
+					} else {
+						instructionBackBtn.onClick.Invoke ();
+					}
+
+				} else if (idCurrentEnablePanel != 0 || idOldEnablePanel != 0) {
+
+					idOldEnablePanel = 0;
+					SelectedBackButton (0);
+
 				} else {
-					instructionBackBtn.onClick.Invoke ();
-				}
-				
-			} else if (idCurrentEnablePanel != 0 || idOldEnablePanel != 0) {
 
-				idOldEnablePanel = 0;
-				SelectedBackButton (0);
+				}
 
 			} else {
-				
+			
+				//viewUserResultPanel.SetActive (false);
 			}
 		}
+		*/
 	}
 
 	public void DisableTabButtons (){

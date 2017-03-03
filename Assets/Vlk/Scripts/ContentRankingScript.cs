@@ -28,8 +28,8 @@ public class ContentRankingScript : MonoBehaviour {
 
 	public void ViewUserResult(){
 
-		UpdateDataScript.updateData.RunUpdatePanel();
 
+		UpdateDataScript.updateData.RunUpdatePanel();
 		StartCoroutine (ValideDateResult());
 	}
 

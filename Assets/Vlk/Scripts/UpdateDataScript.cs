@@ -105,7 +105,8 @@ public class UpdateDataScript : MonoBehaviour {
 		updateState = "isOpen";
 		indexTabContinue = indexTab;
 
-		gameObject.SetActive (true);
+		//gameObject.SetActive (true);
+		NavigatorManager.main.panelsPrincipales[13]._enablePopUpInfoPanel (1);
 		popupMessage.SetActive (true);
 		popupMessage.transform.FindChild ("Text").gameObject.GetComponent<Text> ().text = text;
 	}
