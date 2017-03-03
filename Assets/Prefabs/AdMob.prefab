@@ -73,3 +73,4 @@ MonoBehaviour:
   goCarga: {fileID: 0}
   goNavMenu: {fileID: 0}
   goWelcome: {fileID: 0}
+  goUpdatePolla: {fileID: 0}

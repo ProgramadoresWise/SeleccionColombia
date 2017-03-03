@@ -23,7 +23,9 @@ public class PrefabElementoJugador : MonoBehaviour {
 		txtNombre.text = nombre;
 		imgFoto.sprite = foto;
 		if(panel == "TuElijes")
+		{
 			imgFoto.sprite = ImgLoadManager.main.TuElijesImg(imgFoto,idPlayer.ToString(),false);
+		}
 		else if(panel == "Aplausos")
 			imgFoto.sprite = ImgLoadManager.main.PlayerImg(imgFoto,idPlayer.ToString(),false);
 		txtAplausos.text = "<color=#3FB24DFF>"+aplausos.ToString()+"</color> votos";
