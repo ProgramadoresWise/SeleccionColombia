@@ -46,7 +46,7 @@ public class profileUser : MonoBehaviour {
 
 		mycarnet.loadCarnet( photoUser.sprite , User.main.GetMyName() + " " + User.main.GetMyLastName(), User.main.GetMyFechaIncial(), User.main.GetMyFechaFinal() , int.Parse(User.main.GetMyNumH()));
 		//
-		DesactivarBotones();
+		
 	}
 
 	public void MyloadCarnet( ){
@@ -86,6 +86,7 @@ public class profileUser : MonoBehaviour {
 		}else{
 			ClearInputfields();
 		}
+		DesactivarBotones();
 	}
 
 
