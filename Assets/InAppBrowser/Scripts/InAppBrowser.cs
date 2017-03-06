@@ -14,7 +14,10 @@ public class InAppBrowser : System.Object {
 
 	public static void OpenURL(string URL) {
 		DisplayOptions displayOptions = new DisplayOptions();
-		displayOptions.displayURLAsPageTitle = true;
+		displayOptions.displayURLAsPageTitle = false;
+		displayOptions.backButtonText = "Volver";
+		displayOptions.barBackgroundColor = "black";
+		displayOptions.textColor = "#f0bc10";
 		OpenURL(URL, displayOptions);
 	}
 

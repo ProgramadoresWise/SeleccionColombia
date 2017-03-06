@@ -45,6 +45,8 @@ public class profileUser : MonoBehaviour {
 //		photoUser.sprite = ImgLoadManager.main.UsersImg(photoUser , DataApp.main.GetMyID().ToString(), false);
 
 		mycarnet.loadCarnet( photoUser.sprite , User.main.GetMyName() + " " + User.main.GetMyLastName(), User.main.GetMyFechaIncial(), User.main.GetMyFechaFinal() , int.Parse(User.main.GetMyNumH()));
+		//
+		
 	}
 
 	public void MyloadCarnet( ){
@@ -84,6 +86,7 @@ public class profileUser : MonoBehaviour {
 		}else{
 			ClearInputfields();
 		}
+		DesactivarBotones();
 	}
 
 
@@ -331,5 +334,20 @@ public class profileUser : MonoBehaviour {
 		year.currentlySelected=0;
 		country.value =0;
 		city.value =0;
+	}
+
+	[HeaderAttribute("Registro")]
+	public GameObject btnGuardar;
+	public GameObject btnCancelar;
+
+	public void ActivarBotones()
+	{
+		btnGuardar.SetActive(true);
+		btnCancelar.SetActive(true);
+	}
+	public void DesactivarBotones()
+	{
+		btnGuardar.SetActive(false);
+		btnCancelar.SetActive(false);
 	}
 }
