@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using MaterialUI;
 
 public class ButtonInfo : MonoBehaviour
 {
@@ -27,8 +28,20 @@ public class ButtonInfo : MonoBehaviour
 
     public void SendValue ()
     {
-        Video360Creator.singleton.StartVideo (name);
-//		Video360Creator.singleton.
-        VideosListManager.singleton.HideMenu ();
+        if( User.main.GetMyEmailVerif( ) == 1 )
+        {
+            Video360Creator.singleton.StartVideo (name);
+    //		Video360Creator.singleton.
+            VideosListManager.singleton.HideMenu ();
+        }
+        else
+        {
+            DataApp.main.DisableLoading ();
+            SnackbarManager.Show("Debes verificar tu cuenta desde tu E-mail",3f, "Re-Enviar Correo", () => {
+                DataApp.main.EnableLoading();
+                SnackbarManager.OnSnackbarCompleted();
+                RegisterLoginManager.main.SendEmailto( User.main.GetMyEmail() , User.main.GetMyToken(), true );
+            });
+        }
     }
 }

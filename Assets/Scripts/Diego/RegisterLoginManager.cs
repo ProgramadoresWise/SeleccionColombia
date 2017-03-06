@@ -51,6 +51,7 @@ public class RegisterLoginManager : MonoBehaviour
     public InputField t_name, t_lastname, t_email, t_indcel, t_cel, t_pass, t_confirmpass;
     [HideInInspector]
     public MaterialDropdown d_day, d_month, d_year;
+    public Toggle t_terminos;
     //	[HideInInspector]
     public Dropdown d_country, d_city;
     [HideInInspector]
@@ -212,7 +213,7 @@ public class RegisterLoginManager : MonoBehaviour
                 DataApp.main.SetMyID (result);
                 User.main.SetMyFechaIncial (fechaInit);
                 User.main.SetMyBirthday (d_year.buttonTextContent.text + "-" + month + "-" + d_day.buttonTextContent.text);
-                //				SendEmailto( t_email.text , tk, false);
+                //			SendEmailto( t_email.text , tk, false);
                 mailSent = true;
                 StartCoroutine (OpenOptionEmailVerification (mailSent));
                 SetDatesUser (t_name.text, t_lastname.text, t_email.text, t_pass.text, t_indcel.text, t_cel.text, d_country.value, d_city.value, d_day.currentlySelected, d_month.currentlySelected, d_year.currentlySelected, plataform, 1, gender, result);
@@ -378,11 +379,11 @@ public class RegisterLoginManager : MonoBehaviour
                 StartCoroutine (User.main.getDatasUser (DataApp.main.host + "Registro/userDatas.php?indata=userDatas&idUser=" + DataApp.main.GetMyID (), "registro"));
             }
 
-            if (optMail == optionSendEmail.error)
-                ToastManager.Show ("Se ha producido un Error al enviar el correo electronico", 5f, null);
-            else if (optMail == optionSendEmail.send && !reenviar)
+            //if (optMail == optionSendEmail.error)
+              //  ToastManager.Show ("Se ha producido un Error al enviar el correo electronico", 5f, null);
+            //else if (optMail == optionSendEmail.send && !reenviar)
                 DataApp.main.ActivePopUpRegistroInfo (true);
-            ToastManager.Show ("Registro éxitoso. Bienvenido", 5f, null);
+            //ToastManager.Show ("Registro éxitoso. Bienvenido", 5f, null);
             //				SnackbarManager.Show("Correo enviado,\nDeseas verificar tu correo electronico?",8f, "Verificar", () => {
             //					OpenMail();
             //					SnackbarManager.OnSnackbarCompleted();
@@ -570,6 +571,10 @@ public class RegisterLoginManager : MonoBehaviour
         {
             DataApp.main.popUpInformative (true, "Genero no Valido", "Selecciona tu genero.");
         }
+        else if(!t_terminos.isOn)
+        {
+            DataApp.main.popUpInformative (true, "Políticas no valido", "Selecciona la casilla de politicas de privacidad.");
+        }
         else
         {
             validDatas = true;
@@ -579,7 +584,8 @@ public class RegisterLoginManager : MonoBehaviour
                     StartCoroutine (confirmDatasAndMail (validDatas));
                 else
                     DataApp.main.popUpInformative (true, "Fallo en la conexíon.", "Revisa tu conexión a internet.");
-            }));
+            }
+            ));
         }
     }
 

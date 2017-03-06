@@ -70,6 +70,9 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 	public GameObject alignmentDatasPanel;
 
 	[SerializeField]
+	public Text alignmentCompletePointsText;
+
+	[SerializeField]
 	public List<AlignmentResultData> alignmentResultDataList;
 
 	[SerializeField]
@@ -102,7 +105,9 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		Debug.Log ("El ID del usuario recibido es: " + userID + " y la fecha: " + fecha);
 
-		gameObject.SetActive (true);
+		//gameObject.SetActive (true);
+
+		NavigatorManager.main.panelsPrincipales[13]._enablePopUpInfoPanel (0);
 
 		DateTime newDate = DateTime.Parse (fecha.dataList[0].fecha);
 
@@ -341,6 +346,19 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 					//totalPnts = (obj.prediction_Points != 0) ? totalPnts * obj.prediction_Points : totalPnts;
 					totalPnts = (obj.prediction_Points > 1) ? totalPnts + obj.prediction_Points : totalPnts;
 
+					if (obj.acertoTodo == 1) {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = signOfPoints + " 500";
+
+						resultData.GetComponent<ContentGolScript> ().anotadorData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().tipoGolData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().asistenciaData._points.color = new Color32 (55, 179, 75, 100);
+
+					} else {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = "";
+					}
+
 					index++;
 
 				} else {
@@ -367,7 +385,7 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 					resultData.GetComponent<RectTransform>().localScale = new Vector3 (1, 1, 1);
 					yield return new WaitForEndOfFrame (); //WaitForSeconds(0.1f);
 
-					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setNumGol", titleGols[index] + " Gol", titleGols[index] + " GSol", 0);
+					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setNumGol", titleGols[index] + " Gol", titleGols[index] + " Gol", 0);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setAnotador", obj.autor_Gol, obj.autor_Gol_Result, obj.autor_Gol_Points);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setMinuto", obj.min_Gol.ToString(), obj.min_Gol_Result.ToString(), obj.min_Gol_Points);
 					resultData.GetComponent<ContentGolScript> ().SetDataGolPanel ("setTipoGol", obj.tipo_Gol, obj.tipo_Gol_Result, obj.tipo_Gol_Points);
@@ -375,6 +393,19 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 					//totalPnts = (obj.prediction_Points != 0) ? totalPnts*obj.prediction_Points : totalPnts;
 					totalPnts = (obj.prediction_Points > 1) ? totalPnts + obj.prediction_Points : totalPnts;
+
+					if (obj.acertoTodo == 1) {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = signOfPoints + " 500";
+
+						resultData.GetComponent<ContentGolScript> ().anotadorData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().tipoGolData._points.color = new Color32 (55, 179, 75, 100);
+						resultData.GetComponent<ContentGolScript> ().asistenciaData._points.color = new Color32 (55, 179, 75, 100);
+
+					} else {
+
+						resultData.GetComponent<ContentGolScript> ().numGolData._points.text = "";
+					}
 
 					index++;
 
@@ -392,14 +423,14 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		if (marcador.esLocal == 1) {
 
-			EscudoEquipoHeader.sprite = ImgLoadManager.main.teamImg (EscudoEquipoHeader, "COLOMBIA", false);
-			EscudoOponenteHeader.sprite = ImgLoadManager.main.teamImg (EscudoOponenteHeader, oponente.ToUpper(), false);
+			EscudoEquipoHeader.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoHeader, "COLOMBIA", false);
+			EscudoOponenteHeader.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteHeader, oponente.ToUpper(), false);
 
-			EscudoEquipoLeft.sprite = ImgLoadManager.main.teamImg (EscudoEquipoLeft, "COLOMBIA", false);
-			EscudoOponenteLeft.sprite = ImgLoadManager.main.teamImg (EscudoOponenteLeft, oponente.ToUpper(), false);
+			EscudoEquipoLeft.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoLeft, "COLOMBIA", false);
+			EscudoOponenteLeft.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteLeft, oponente.ToUpper(), false);
 
-			EscudoEquipoRight.sprite = ImgLoadManager.main.teamImg (EscudoEquipoRight, "COLOMBIA", false);
-			EscudoOponenteRight.sprite = ImgLoadManager.main.teamImg (EscudoOponenteRight, oponente.ToUpper(), false);
+			EscudoEquipoRight.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoEquipoRight, "COLOMBIA", false);
+			EscudoOponenteRight.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoOponenteRight, oponente.ToUpper(), false);
 
 			BarcelonaGolesLeft.text = marcador.goles_Barcelona.ToString ();
 			OponenteGolesLeft.text = marcador.goles_Oponente.ToString ();
@@ -409,14 +440,14 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 
 		} else {
 
-			EscudoEquipoHeader.sprite = ImgLoadManager.main.teamImg (EscudoEquipoHeader, oponente.ToUpper(), false);
-			EscudoOponenteHeader.sprite = ImgLoadManager.main.teamImg (EscudoOponenteHeader, "COLOMBIA", false);
+			EscudoEquipoHeader.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower());//ImgLoadManager.main.teamImg (EscudoEquipoHeader, oponente.ToUpper(), false);
+			EscudoOponenteHeader.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteHeader, "COLOMBIA", false);
 
-			EscudoEquipoLeft.sprite = ImgLoadManager.main.teamImg (EscudoEquipoLeft, oponente.ToUpper(), false);
-			EscudoOponenteLeft.sprite = ImgLoadManager.main.teamImg (EscudoOponenteLeft, "COLOMBIA", false);
+			EscudoEquipoLeft.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoEquipoLeft, oponente.ToUpper(), false);
+			EscudoOponenteLeft.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteLeft, "COLOMBIA", false);
 
-			EscudoEquipoRight.sprite = ImgLoadManager.main.teamImg (EscudoEquipoRight, oponente.ToUpper(), false);
-			EscudoOponenteRight.sprite = ImgLoadManager.main.teamImg (EscudoOponenteRight, "COLOMBIA", false);
+			EscudoEquipoRight.sprite = Resources.Load<Sprite>("Equipos/"+oponente.ToLower()); //ImgLoadManager.main.teamImg (EscudoEquipoRight, oponente.ToUpper(), false);
+			EscudoOponenteRight.sprite = Resources.Load<Sprite>("Equipos/"+"colombia"); //ImgLoadManager.main.teamImg (EscudoOponenteRight, "COLOMBIA", false);
 		
 			BarcelonaGolesLeft.text = marcador.goles_Oponente.ToString ();
 			OponenteGolesLeft.text = marcador.goles_Barcelona.ToString ();
@@ -483,10 +514,20 @@ public class ViewUserScrollResultadosScript : MonoBehaviour {
 				
 				alignmentResultDataList [i]._points.text =  signOfPoints + alignmentResultList.dataList[0].GetValueToKey ("PtnAlign" + (i+1));
 
+				if(int.Parse(alignmentResultList.dataList[0].GetValueToKey ("AcertoTodo")) == 1){
+
+					alignmentResultDataList [i]._points.color = new Color32 (55, 179, 75, 100);
+				}
+
 			} else {
 
 				alignmentResultDataList [i]._points.text = "";
 			}
+		}
+
+		if(int.Parse(alignmentResultList.dataList[0].GetValueToKey ("AcertoTodo")) == 1){
+
+			alignmentCompletePointsText.text = signOfPoints + " 500";
 		}
 
 		alignmentDatasPanel.SetActive (true);

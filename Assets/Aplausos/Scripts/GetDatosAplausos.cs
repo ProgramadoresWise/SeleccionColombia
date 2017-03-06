@@ -27,7 +27,8 @@ public class GetDatosAplausos : MonoBehaviour
 	public RectTransform [] contents;
 	// Use this for initialization
 
-	public void OnEventClick (bool act) {
+	public void OnEventClick (bool act) 
+	{
 		DataApp.main.EnableLoading();
 		if(act)
 			StartCoroutine(getDatabaseAplausos());
@@ -35,8 +36,8 @@ public class GetDatosAplausos : MonoBehaviour
 
 	#region Rellenar Contenidos
 
-	public void RellenarContenidos(){
-
+	public IEnumerator RellenarContenidos()
+	{
 		clearContents();
 		//Rellenar lista de Partido
 		int countPartido = 0;
@@ -47,11 +48,9 @@ public class GetDatosAplausos : MonoBehaviour
 			string nom = obj.GetValueToKey("nombreJugador".ToString());
 			int apl = int.Parse(obj.GetValueToKey("aplausosUltimoPartido").ToString());
 			float por = retCalculoPorcentaje(apl, TotalAplPartido);
-				CrearPrefabJugador( parentScrollPartido, id,countPartido, nom, apl, por, p_Foto);
-			
+			yield return StartCoroutine(CrearPrefabJugador( parentScrollPartido, id,countPartido, nom, apl, por, p_Foto));
 		}
-
-		//Rellenar lista de Acumulado  
+		//Rellenar lista de Acumulado
 		int countHistorial = 0;
 		foreach(DataRow obj in datosListAcumulado.dataList){
 			countHistorial++;
@@ -59,14 +58,12 @@ public class GetDatosAplausos : MonoBehaviour
 			string nom = obj.GetValueToKey("nombreJugador".ToString());
 			int apl = int.Parse(obj.GetValueToKey("aplausosHistorial").ToString());
 			float por = retCalculoPorcentaje(apl, TotalAplHistorial);
-				CrearPrefabJugador( parentScrollAcumulado,id, countHistorial, nom, apl, por, p_Foto);
-			
-				
+			yield return StartCoroutine(CrearPrefabJugador( parentScrollAcumulado,id, countHistorial, nom, apl, por, p_Foto));
 		}
-
 		//Rellenar la pestaña de partido
 		StartCoroutine(GetFinalMatch());
-	
+
+		parentScrollPartido.GetComponent<VerticalLayoutGroup>().enabled = true;
 
 		if( !update ){
 			update = true;
@@ -88,14 +85,12 @@ public class GetDatosAplausos : MonoBehaviour
 		}
 
 
-		p_Bandera1 = Resources.Load<Sprite>(p_Equipo1);
-		if( p_Bandera1 == null)
-			p_Bandera1 = ImgLoadManager.main.teamImg(imgLocal,p_Equipo1,false);
+		p_Bandera1 = Resources.Load<Sprite>("Equipos/"+p_Equipo1);
 
 
-		p_Bandera2 = Resources.Load<Sprite>(p_Equipo2);
-		if( p_Bandera2 == null)
-			p_Bandera2 = ImgLoadManager.main.teamImg(imgVisitante,p_Equipo2,false);
+
+		p_Bandera2 = Resources.Load<Sprite>("Equipos/"+p_Equipo2);
+	
 
 		RellenarPartido(p_Bandera1, p_Bandera2, p_Equipo1, p_Equipo2);
 	}
@@ -122,14 +117,16 @@ public class GetDatosAplausos : MonoBehaviour
 	List<GameObject> listaJugadores = new List<GameObject>();
 	public string urlFotos;
 
-	public void CrearPrefabJugador(Transform t, int id, int pos, string nombre, int aplausos, float porcentaje, Sprite foto){
+	public IEnumerator CrearPrefabJugador(Transform t, int id, int pos, string nombre, int aplausos, float porcentaje, Sprite foto)
+	{
 		GameObject go = Instantiate(PrefabJugador) as GameObject;
+
+		yield return new WaitForEndOfFrame();
+		
 		PrefabElementoJugador p = go.GetComponent<PrefabElementoJugador>();
-		go.GetComponent<scrollComponent>().enabled = false;
-		go.GetComponent<BoxCollider2D>().enabled = false;
+
 		go.name = id.ToString();
 		p.ModificarJugador( id , pos,getApellido(nombre),aplausos,porcentaje,foto,update,"Aplausos");
-		p.imgFoto.sprite = ImgLoadManager.main.PlayerImg(p.imgFoto, p.idPlayer.ToString(),false);
 //		StartCoroutine( GetFotoJugador(getApellido(nombre).ToLower(), p.imgFoto));
 		listaJugadores.Add(go);
 
@@ -331,7 +328,7 @@ public class GetDatosAplausos : MonoBehaviour
 
 			FillListas();
 			SumaTotal();
-			RellenarContenidos();
+			StartCoroutine(RellenarContenidos());
 
 		} 
 		else if (GetJsonDataScript.getJson._state == "Warning_01") 

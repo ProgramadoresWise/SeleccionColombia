@@ -39,7 +39,7 @@ public class StartPronostico : MonoBehaviour {
 			}
 			ActivatedPolla = act;
 		}else{
-			DataApp.main.popUpInformative(true, "Acceso no permitido", "Debes ser mayor de edad para poder jugar Polla Tricolor");
+			DataApp.main.popUpInformative(true, "Acceso no permitido", "Debes ser mayor de edad para poder jugar Polla Oficial");
 		}
 			
 	}

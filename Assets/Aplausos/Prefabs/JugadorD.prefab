@@ -203,9 +203,6 @@ GameObject:
   - 114: {fileID: 114000012018852606}
   - 114: {fileID: 114000010875448968}
   - 114: {fileID: 114000010837365212}
-  - 114: {fileID: 114000013900101868}
-  - 61: {fileID: 61000013895467362}
-  - 50: {fileID: 50000013942605556}
   m_Layer: 5
   m_Name: JugadorD
   m_TagString: Untagged
@@ -391,37 +388,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &50000013942605556
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012871448710}
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &61000013895467362
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012871448710}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 50}
 --- !u!114 &114000010032857574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1334,25 +1300,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1
---- !u!114 &114000013900101868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012871448710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70cf7a5808514dc4ebc8a55c83ff935f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sonDesactive:
-  - {fileID: 1000012576123618}
-  - {fileID: 1000013280894184}
-  - {fileID: 1000010313979968}
-  imgDesactive: []
-  cm: 1
-  IsDownload: 0
-  callImg: 0
 --- !u!114 &114000014001679096
 MonoBehaviour:
   m_ObjectHideFlags: 1

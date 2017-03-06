@@ -130,15 +130,28 @@ public class ScrollPrediccionScript : MonoBehaviour {
 
 	public GetNextDateScript tiempoRestate;
 
+
+	private Button predictionBtn;
+
 	// Use this for initialization
 	void Start () {
-		
+
+		predictionBtn = predecirBtn.GetComponent<Button> ();
+
 //		inputBarcelonaScore.onEndEdit.AddListener(delegate {UpdateSpaceData();});
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		if (goalsBarcelona.text == "" && goalsOponente.text == "" && predictionBtn.interactable) {
+
+			predictionBtn.interactable = false;
+
+		} else if(goalsBarcelona.text != "" && goalsOponente.text != "" && !predictionBtn.interactable){
+
+			predictionBtn.interactable = true;		
+		}
 	}
 
 	#region PANEL CREATOR
@@ -324,7 +337,7 @@ public class ScrollPrediccionScript : MonoBehaviour {
 
 			foreach(GameObject obj in panelsData){
 
-				if (obj.GetComponent<PanelPronosticoDataScript> ().goleadorText.text == "") {
+				if (obj.GetComponent<PanelPronosticoDataScript> ().goleadorText.text == "Goleador") {
 					
 					//Debug.Log ("goleadorText");
 
@@ -332,7 +345,7 @@ public class ScrollPrediccionScript : MonoBehaviour {
 
 					break;
 
-				} else if (obj.GetComponent<PanelPronosticoDataScript> ().goalTypeText.text == "") {
+				} else if (obj.GetComponent<PanelPronosticoDataScript> ().goalTypeText.text == "Tipo de Gol") {
 
 					//Debug.Log ("goalTypeText");
 
@@ -348,7 +361,7 @@ public class ScrollPrediccionScript : MonoBehaviour {
 
 					break;
 
-				} else if (obj.GetComponent<PanelPronosticoDataScript> ().paseGoalText.text == "") {
+				} else if (obj.GetComponent<PanelPronosticoDataScript> ().paseGoalText.text == "Pase Gol") {
 
 					//Debug.Log ("paseGoalText");
 

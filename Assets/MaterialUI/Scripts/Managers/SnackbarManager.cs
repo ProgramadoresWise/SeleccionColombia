@@ -14,6 +14,7 @@ namespace MaterialUI
     [AddComponentMenu("MaterialUI/Managers/Snackbar Manager")]
     public class SnackbarManager : MonoBehaviour
     {
+        AdManager adManager;
         /// <summary>
         /// The singelton in-scene instance.
         /// </summary>
@@ -116,6 +117,8 @@ namespace MaterialUI
                 Debug.LogWarning("More than one SnackbarManager exist in the scene, destroying one.");
                 Destroy(gameObject);
             }
+
+            adManager = GameObject.Find("AdMob").GetAddComponent<AdManager>();
         }
 
         /// <summary>
@@ -198,7 +201,7 @@ namespace MaterialUI
         /// <param name="actionName">The text of the action button.</param>
         /// <param name="onActionButtonClicked">Called when the action button is clicked.</param>
         public static void Show(string content, float duration, Color panelColor, Color textColor, int fontSize, string actionName, Action onActionButtonClicked)
-        {
+        {            
             if (!instance.m_InitDone)
             {
                 instance.InitSystem();
@@ -216,8 +219,13 @@ namespace MaterialUI
         {
             if (m_Snackbars.Count > 0 && !m_IsActive)
             {
+                adManager.bannerViewBottom.Hide();
                 m_CurrentAnimator.Show(m_Snackbars.Dequeue());
                 m_IsActive = true;
+            }
+            else
+            {
+                adManager.bannerViewBottom.Show();
             }
         }
 
@@ -230,6 +238,7 @@ namespace MaterialUI
         {
             instance.m_IsActive = false;
             instance.StartQueue();
+            AdManager.snackShow = true;
             return (instance.m_Snackbars.Count > -1);
         }
     }

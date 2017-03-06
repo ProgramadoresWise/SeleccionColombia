@@ -88,7 +88,7 @@ public class PositionsTable : MonoBehaviour
         
 
         if (actualizarNum != DataApp.main.GetMyInfoInt("MyTablaPosNum")) {
-			DataApp.main.EnableLoading();
+			//DataApp.main.EnableLoading();
             print("ACTUALIZANDO TABLAS");
 			imagenEscudos.texture  = ImgLoadManager.main.ShieldTableTexture(imagenEscudos,"banderas",true);
             imagenEscudos.enabled = true;
@@ -144,7 +144,7 @@ public class PositionsTable : MonoBehaviour
         {
 			
 				imagenEscudos.texture  = ImgLoadManager.main.ShieldTableTexture(imagenEscudos,"banderas",false);
-				imagenEscudos.enabled = true;
+				//imagenEscudos.enabled = true;
 			
 			/*	resultName.text = DataApp.main.GetMyInfoString ("MyTablaName");
 				resultPJ.text = DataApp.main.GetMyInfoString("MyTablaPJ");
@@ -158,6 +158,7 @@ public class PositionsTable : MonoBehaviour
 			reload = true;
         }
 		DataApp.main.DisableLoading();
+        imagenEscudos.enabled = true;
     }
 
 

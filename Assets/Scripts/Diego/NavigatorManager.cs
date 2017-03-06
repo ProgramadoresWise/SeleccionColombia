@@ -69,7 +69,7 @@ public class NavigatorManager : MonoBehaviour
                 return;
             }
 
-            if (StartPronostico.main.ActivatedPolla)
+			if (StartPronostico.main.ActivatedPolla  && !enablePopUpInfoPanel)
             {
                 StartPronostico.main.habilityPanelGame (false);
             }

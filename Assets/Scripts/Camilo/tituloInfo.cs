@@ -24,7 +24,9 @@ public class tituloInfo : MonoBehaviour
 
 	public void GetRankingDataUser(){
 
-		DataApp.main.EnableLoading();
+		//DataApp.main.EnableLoading();
+
+		UpdateDataScript.updateData.RunUpdatePanel ();
 
 		StartCoroutine(UpdateUserRanking()); 
 	}
@@ -39,7 +41,8 @@ public class tituloInfo : MonoBehaviour
 			StartCoroutine (GetUserRanking(int.Parse(updFlag.text)));
 		}else{
 
-			DataApp.main.popUpInformative(true, "Fallo en la conexíon.", "Revisa tu conexión a internet.");
+			//DataApp.main.popUpInformative(true, "Fallo en la conexíon.", "Revisa tu conexión a internet.");
+			UpdateDataScript.updateData.RunPopup ("Fallo en la conexión.\nIntentelo de nuevo.", 0);
 		}
 
 	}
@@ -99,7 +102,7 @@ public class tituloInfo : MonoBehaviour
 		Debug.Log (obj.nameText + " - "  + obj.points.ToString () + " - " + obj.userID.ToString ());
 
 		UpdateDataScript.updateData.StopUpdatePanel ();
-		DataApp.main.DisableLoading();
+		//DataApp.main.DisableLoading();
 	}
 
 }

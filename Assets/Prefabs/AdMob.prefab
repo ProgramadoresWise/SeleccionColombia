@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011943914698}
   - 114: {fileID: 114000010879238812}
+  - 114: {fileID: 114000010180898324}
   m_Layer: 0
   m_Name: AdMob
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010180898324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013320834494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de39dd3d79e95c499a7f2d4f841219b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barState: 1
 --- !u!114 &114000010879238812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,5 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTesting: 1
-  adUnitBannerAndroid: ca-app-pub-3590626879823068/6492167030
-  adUnitBannerIOS: ca-app-pub-3590626879823068/2288319837
+  adUnitBannerAndroidTop: ca-app-pub-3590626879823068/8206769033
+  adUnitBannerAndroidBottom: ca-app-pub-3590626879823068/6492167030
+  adUnitBannerAndroidBottom2: ca-app-pub-3590626879823068/6431997833
+  adUnitBannerTopIOS: ca-app-pub-3590626879823068/9683502233
+  adUnitBannerBottomIOS: ca-app-pub-3590626879823068/2288319837
+  adUnitBannerBottomIOS2: ca-app-pub-3590626879823068/9385464231
+  TabViewRegistro: {fileID: 0}
+  goCarga: {fileID: 0}
+  goNavMenu: {fileID: 0}
+  goWelcome: {fileID: 0}
+  goUpdatePolla: {fileID: 0}
