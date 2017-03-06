@@ -12,23 +12,31 @@ public class AdManager : MonoBehaviour
     [HeaderAttribute ("Ad Unit")]
     public string adUnitBannerAndroidTop;
     public string adUnitBannerAndroidBottom;
+    public string adUnitBannerAndroidBottom2;
     public string adUnitBannerTopIOS;
     public string adUnitBannerBottomIOS;
+    public string adUnitBannerBottomIOS2;
 
     [HeaderAttribute("Enable/Disable")]
     public TabView TabViewRegistro;
     public GameObject goCarga, goNavMenu, goWelcome, goUpdatePolla;
     bool canShow = false;
     public static bool snackShow;
+    bool showBottom;
+    bool showTop;
     //
     public BannerView bannerViewBottom;
     public BannerView bannerViewTop;
+    public BannerView bannerViewBottomMenu;
 
     // Use this for initialization
     void Start ()
     {
-        RequestBannerBottom ();
-        //RequestBannerTop ();
+        RequestBanners ();
+        //
+        // bannerViewBottomMenu.Hide();
+        bannerViewTop.Hide();
+        showTop = false;
     }
 
     // Update is called once per frame
@@ -38,95 +46,104 @@ public class AdManager : MonoBehaviour
         {
             if(TabViewRegistro.currentPage == 5)
             {
-                bannerViewBottom.Hide();
+                if(showBottom)
+                {
+                    bannerViewBottom.Hide();
+                    showBottom = false;
+                }
             }
             else
             {
-                bannerViewBottom.Show();
+                if(!showBottom)
+                {
+                    bannerViewBottom.Show();
+                    showBottom = true;
+                }
             }
         }
 
-        if(goCarga.activeInHierarchy || goNavMenu.activeInHierarchy || goWelcome.activeInHierarchy || goUpdatePolla.activeInHierarchy)
+        if(goCarga.activeInHierarchy || goWelcome.activeInHierarchy || goUpdatePolla.activeInHierarchy)
         {
-            bannerViewBottom.Hide();
+            if(showBottom)
+            {
+                bannerViewBottom.Hide();
+                showBottom = false;
+            }
+            canShow = true;  
+        }
+        else if(goNavMenu.activeInHierarchy)
+        {
+            if(!showTop)
+            {
+                bannerViewTop.Show();
+                showTop = true;
+            }
             canShow = true;
+            // bannerViewBottomMenu.Show();
         }
         else if(canShow)
         {
-            bannerViewBottom.Show();
+            if(showTop)
+            {
+                bannerViewTop.Hide();
+                showTop = false;
+            }
+            if(!showBottom)
+            {
+                bannerViewBottom.Show();
+                showBottom = true;
+            }
+            //bannerViewBottomMenu.Hide();
             canShow = false;
         }
     }
 
-    private void RequestBannerBottom ()
+    private void RequestBanners ()
     {
 #if UNITY_ANDROID
         string adUnitId = adUnitBannerAndroidBottom;
+        string adUnitId1 = adUnitBannerAndroidTop;
+        string adUnitId2 = adUnitBannerAndroidBottom2;
 #elif UNITY_IPHONE
-        string adUnitId = adUnitBannerIOS;
+        string adUnitId = adUnitBannerBottomIOS;
+        string adUnitId1 = adUnitBannerTopIOS;
+        string adUnitId2 = adUnitBannerBottomIOS2;
 #else
         string adUnitId = "unexpected_platform";
 #endif
         // Create a 320x50 banner at the top of the screen.
         bannerViewBottom = new BannerView (adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
-
-        // bannerView.OnAdOpening += AdOpenedHandler;
+        bannerViewTop = new BannerView (adUnitId1, AdSize.SmartBanner, AdPosition.TopLeft);
+        // bannerViewBottom = new BannerView (adUnitId2, AdSize.SmartBanner, AdPosition.BottomLeft);
 
         // Create an empty ad request.
         AdRequest request;
+        AdRequest request1;
+        // AdRequest request2;
         //
         if (isTesting)
         {
 			#if UNITY_ANDROID
             request = new AdRequest.Builder ().AddTestDevice (GetAndroidAdMobID ()).Build ();
+            request1 = new AdRequest.Builder ().AddTestDevice (GetAndroidAdMobID ()).Build ();
+            // request2 = new AdRequest.Builder ().AddTestDevice (GetAndroidAdMobID ()).Build ();
 			#elif UNITY_IPHONE
 			request = new AdRequest.Builder ().AddTestDevice (GetIOSAdMobID ()).Build ();
+            request1 = new AdRequest.Builder ().AddTestDevice (GetIOSAdMobID ()).Build ();
+            // request2 = new AdRequest.Builder ().AddTestDevice (GetIOSAdMobID ()).Build ();
 			#endif
         }
         else
         {
             request = new AdRequest.Builder ().Build ();
+            request1 = new AdRequest.Builder ().Build ();
+            // request2 = new AdRequest.Builder ().Build ();
         }
         // Load the banner with the request.
         bannerViewBottom.LoadAd (request);
+        bannerViewTop.LoadAd (request1);
+        // bannerViewBottomMenu.LoadAd (request2);
     }
-
-    private void RequestBannerTop ()
-    {
-#if UNITY_ANDROID
-        string adUnitId = adUnitBannerAndroidTop;
-#elif UNITY_IPHONE
-        string adUnitId = adUnitBannerIOS;
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-        // Create a 320x50 banner at the top of the screen.
-        bannerViewTop = new BannerView (adUnitId, AdSize.SmartBanner, AdPosition.Top);
-
-        // bannerView.OnAdOpening += AdOpenedHandler;
-
-        // Create an empty ad request.
-        AdRequest request;
-        //
-        if (isTesting)
-        {
-			#if UNITY_ANDROID
-            request = new AdRequest.Builder ().AddTestDevice (GetAndroidAdMobID ()).Build ();
-			#elif UNITY_IPHONE
-			request = new AdRequest.Builder ().AddTestDevice (GetIOSAdMobID ()).Build ();
-			#endif
-        }
-        else
-        {
-            request = new AdRequest.Builder ().Build ();
-        }
-        // Load the banner with the request.
-        bannerViewTop.LoadAd (request);
-    }
-    // public void AdOpenedHandler(object sender, EventArgs args)
-    // {
-
-    // }
 
 #if UNITY_ANDROID
     public static string GetAndroidAdMobID ()

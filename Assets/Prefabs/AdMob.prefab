@@ -67,8 +67,10 @@ MonoBehaviour:
   isTesting: 1
   adUnitBannerAndroidTop: ca-app-pub-3590626879823068/8206769033
   adUnitBannerAndroidBottom: ca-app-pub-3590626879823068/6492167030
+  adUnitBannerAndroidBottom2: ca-app-pub-3590626879823068/6431997833
   adUnitBannerTopIOS: ca-app-pub-3590626879823068/9683502233
   adUnitBannerBottomIOS: ca-app-pub-3590626879823068/2288319837
+  adUnitBannerBottomIOS2: ca-app-pub-3590626879823068/9385464231
   TabViewRegistro: {fileID: 0}
   goCarga: {fileID: 0}
   goNavMenu: {fileID: 0}
